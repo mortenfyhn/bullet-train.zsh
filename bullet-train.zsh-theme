@@ -436,6 +436,16 @@ prompt_git() {
     else
       echo -n ${git_prompt}
     fi
+
+    # Use this to count stashes on current branch.
+    # num_stashes=$(git stash list 2> /dev/null | grep "on `git rev-parse --abbrev-ref HEAD`" | wc -l)
+
+    # Use this to count stashes in repo.
+    num_stashes=$(git stash list 2> /dev/null | grep "stash@" | wc -l)
+
+    if [ $num_stashes != "0" ]; then
+      echo -n "" $num_stashes"🚮"
+    fi
   fi
 }
 
